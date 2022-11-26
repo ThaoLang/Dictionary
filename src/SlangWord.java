@@ -106,14 +106,21 @@ public class SlangWord {
         addSeparateKeyWord(key,newdef);
     }
 
-//    public void editSlang(String oldSlang,String newSlang){
-//        HashSet<String> defi=slang.remove(oldSlang);
-//        slang.put(newSlang,defi);
-//    }
-//
-//    public void deleteSlang(String key){
-//        slang.remove(key);
-//    }
+    public void editSlang(String oldSlang,String newSlang){
+        HashSet<String> defi=slang.remove(oldSlang);
+        for (String temp: defi){
+            deleteElementDefinition(oldSlang,temp);
+            addSeparateKeyWord(newSlang,temp);
+        }
+        slang.put(newSlang,defi);
+    }
+
+    public void deleteSlang(String sslang){
+        HashSet<String> defi=slang.remove(sslang);
+        for (String temp: defi){
+            deleteElementDefinition(sslang,temp);
+        }
+    }
 
     public static void main(String[] args) {
 //        SlangWord dict = new SlangWord();
