@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
 
@@ -19,7 +20,7 @@ public class SlangWord {
         history = new History();
     }
 
-    private void separateKeyWord(String key, String value){
+    private void addSeparateKeyWord(String key, String value){
         String[] keyword = value.split(" ");
         for (String word:keyword){
             if (definition.containsKey(word)){
@@ -31,6 +32,17 @@ public class SlangWord {
                 HashSet<String> slangtemp=new HashSet<String>();
                 slangtemp.add(key);
                 definition.put(word,slangtemp);
+            }
+        }
+    }
+
+    private void deleteElementDefinition(String key, String value){
+        String[] keyword = value.split(" ");
+        for (String word:keyword){
+            if (definition.get(word).contains(key)){
+                definition.get(word).remove(key);
+                if (definition.get(word).isEmpty())
+                    definition.remove(word);
             }
         }
     }
@@ -50,13 +62,13 @@ public class SlangWord {
             HashSet<String> deftemp = new HashSet<String>();
             if (!splitLine[1].contains("|")) {
                 deftemp.add(splitLine[1]);
-                separateKeyWord(splitLine[0],splitLine[1]);
+                addSeparateKeyWord(splitLine[0],splitLine[1]);
                 slang.put(splitLine[0], deftemp);
             }
             else {
                 String[] temp = splitLine[1].split("\\| ");
                 for (String str: temp) {
-                    separateKeyWord(splitLine[0],str );
+                    addSeparateKeyWord(splitLine[0],str );
                     deftemp.add(str);
                 }
                 slang.put(splitLine[0], deftemp);
@@ -71,13 +83,50 @@ public class SlangWord {
         return slang.get(key);
     }
 
-    public static void main(String[] args) {
-        SlangWord dict = new SlangWord();
-        try {
-            dict.init("slang.txt");
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+    public void addSlang(String newSlang,String newdef){
+        HashSet<String> temp=new HashSet<>();
+        temp.add(newdef);
+        slang.put(newSlang,temp);
+        addSeparateKeyWord(newSlang,newdef);
+    }
+
+    public void overwriteSlang(String sSlang,String newdef){
+        for (String temp: slang.get(sSlang)){
+            deleteElementDefinition(sSlang,temp);
         }
+        slang.get(sSlang).clear();
+
+        slang.get(sSlang).add(newdef);
+        addSeparateKeyWord(sSlang,newdef);
+
+    }
+
+    public void duplicateSlang(String key,String newdef){
+        slang.get(key).add(newdef);
+        addSeparateKeyWord(key,newdef);
+    }
+
+//    public void editSlang(String oldSlang,String newSlang){
+//        HashSet<String> defi=slang.remove(oldSlang);
+//        slang.put(newSlang,defi);
+//    }
+//
+//    public void deleteSlang(String key){
+//        slang.remove(key);
+//    }
+
+    public static void main(String[] args) {
+//        SlangWord dict = new SlangWord();
+//        try {
+//            dict.init("slang.txt");
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        String stringDate= DateFor.format(date);
+        System.out.println(stringDate);
 
     }
 }
