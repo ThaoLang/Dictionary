@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
@@ -13,12 +14,16 @@ public class SlangWord {
     private TreeMap<String, HashSet<String>> slang;
     private HashMap<String, HashSet<String>> definition;
     private History history;
+    private String dailySlang="";
+    private LocalDate lastRandom=LocalDate.MIN;
 
     SlangWord() {
         slang = new TreeMap<>();
         definition = new HashMap<>();
         history = new History();
     }
+
+
 
     private void addSeparateKeyWord(String key, String value){
         String[] keyword = value.split(" ");
@@ -75,7 +80,6 @@ public class SlangWord {
             }
         }
         br.close();
-        System.out.println(definition);
 
     }
 
@@ -122,18 +126,51 @@ public class SlangWord {
         }
     }
 
+    public String randomSlang() {
+        Object[] slangList = slang.keySet().toArray();
+        Object key = slangList[new Random().nextInt(slangList.length)];
+
+        String[] defList = slang.get(key).toArray(new String[slang.get(key).size()]);
+        Object value = defList[new Random().nextInt(defList.length)];
+
+        return key.toString() +": "+ value.toString();
+    }
+
     public static void main(String[] args) {
-//        SlangWord dict = new SlangWord();
-//        try {
-//            dict.init("slang.txt");
-//        } catch (IOException e) {
-//            throw new RuntimeException(e);
-//        }
+        SlangWord dict = new SlangWord();
+        try {
+            dict.init("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
-        Date date = new Date();
-        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-        String stringDate= DateFor.format(date);
-        System.out.println(stringDate);
+        Scanner input=new Scanner(System.in);
+        System.out.println("Enter the slang: ");
+        String key=input.nextLine();
 
+        for (String x: dict.getDefinition().get(key)){
+            System.out.println(x);
+        }
+        System.out.println("The daily slang: "+dict.randomSlang());
+
+//        Date date = new Date();
+//        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+//        String stringDate= DateFor.format(date);
+//        System.out.println(stringDate);
+
+
+
+    }
+
+    public TreeMap<String, HashSet<String>> getSlang() {
+        return slang;
+    }
+
+    public HashMap<String, HashSet<String>> getDefinition() {
+        return definition;
+    }
+
+    public History getHistory() {
+        return history;
     }
 }
