@@ -1,77 +1,108 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="Interface">
-  <grid id="27dc6" binding="homePage" layout-manager="GridLayoutManager" row-count="4" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+  <grid id="27dc6" binding="homePage" layout-manager="GridLayoutManager" row-count="7" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
     <margin top="0" left="0" bottom="0" right="0"/>
     <constraints>
-      <xy x="20" y="20" width="890" height="508"/>
+      <xy x="38" y="20" width="957" height="1497"/>
     </constraints>
     <properties/>
-    <border type="none"/>
+    <border type="none" title="">
+      <font/>
+      <title-color color="-4473925"/>
+    </border>
     <children>
-      <grid id="16122" binding="searchPanel" layout-manager="GridLayoutManager" row-count="2" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+      <grid id="16122" binding="searchPanel" layout-manager="GridLayoutManager" row-count="41" column-count="4" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="2" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="2" column="0" row-span="4" col-span="3" vsize-policy="0" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
         <children>
           <component id="4fba4" class="javax.swing.JLabel" binding="searchLabel">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false">
+              <grid row="0" column="0" row-span="38" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
                 <preferred-size width="58" height="16"/>
               </grid>
             </constraints>
             <properties>
+              <font size="16"/>
               <text value="Search for a "/>
             </properties>
           </component>
           <component id="117d7" class="javax.swing.JComboBox" binding="typeSearch">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
+              <grid row="0" column="1" row-span="38" col-span="1" vsize-policy="0" hsize-policy="2" anchor="8" fill="1" indent="0" use-parent-layout="false">
                 <preferred-size width="78" height="30"/>
               </grid>
             </constraints>
             <properties>
+              <font size="16"/>
               <model>
                 <item value="slang"/>
                 <item value="definition"/>
               </model>
             </properties>
           </component>
-          <component id="11c" class="javax.swing.JTextField" binding="textSearch">
-            <constraints>
-              <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="150" height="-1"/>
-              </grid>
-            </constraints>
-            <properties/>
-          </component>
           <component id="e2135" class="javax.swing.JButton" binding="button1" default-binding="true">
             <constraints>
-              <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+              <grid row="39" column="0" row-span="2" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
             </constraints>
             <properties>
-              <text value="Button"/>
+              <text value="Back Dictionary"/>
             </properties>
           </component>
-          <component id="98bd1" class="javax.swing.JButton" binding="searchButton" default-binding="true">
+          <component id="11c" class="javax.swing.JTextField" binding="textSearch">
             <constraints>
-              <grid row="0" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false">
-                <preferred-size width="30" height="30"/>
+              <grid row="32" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="4" anchor="10" fill="1" indent="0" use-parent-layout="false">
+                <preferred-size width="100" height="30"/>
               </grid>
             </constraints>
             <properties>
-              <icon value="img/search.png"/>
+              <horizontalAlignment value="2"/>
               <text value=""/>
             </properties>
           </component>
+          <grid id="331fa" layout-manager="GridLayoutManager" row-count="1" column-count="3" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+            <margin top="0" left="0" bottom="0" right="0"/>
+            <constraints>
+              <grid row="38" column="2" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties/>
+            <border type="none"/>
+            <children>
+              <component id="13e10" class="javax.swing.JButton" binding="addButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Add"/>
+                </properties>
+              </component>
+              <component id="77a91" class="javax.swing.JButton" binding="editButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Edit"/>
+                </properties>
+              </component>
+              <component id="71d17" class="javax.swing.JButton" binding="deleteButton" default-binding="true">
+                <constraints>
+                  <grid row="0" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+                </constraints>
+                <properties>
+                  <text value="Delete"/>
+                </properties>
+              </component>
+            </children>
+          </grid>
         </children>
       </grid>
       <grid id="5fd93" binding="displayPanel" layout-manager="GridLayoutManager" row-count="1" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="0" row-span="1" col-span="3" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -82,7 +113,14 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="5e158" class="javax.swing.JList" binding="slangList">
+                <constraints/>
+                <properties>
+                  <model/>
+                </properties>
+              </component>
+            </children>
           </scrollpane>
           <scrollpane id="d7d84" binding="definitionScrollPane">
             <constraints>
@@ -90,14 +128,19 @@
             </constraints>
             <properties/>
             <border type="none"/>
-            <children/>
+            <children>
+              <component id="b3543" class="javax.swing.JList" binding="defList">
+                <constraints/>
+                <properties/>
+              </component>
+            </children>
           </scrollpane>
         </children>
       </grid>
       <grid id="81a4f" binding="optionPanel" layout-manager="GridLayoutManager" row-count="3" column-count="1" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
         <margin top="0" left="0" bottom="0" right="0"/>
         <constraints>
-          <grid row="3" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+          <grid row="6" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties/>
         <border type="none"/>
@@ -137,20 +180,20 @@
           <text value=""/>
         </properties>
       </component>
-      <component id="3462a" class="javax.swing.JLabel" binding="DailySlang">
-        <constraints>
-          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-        </constraints>
-        <properties>
-          <text value="Learn new slang for today"/>
-        </properties>
-      </component>
       <component id="73bdd" class="javax.swing.JButton" binding="dailySlangButton" default-binding="true">
         <constraints>
-          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="1" indent="0" use-parent-layout="false">
+            <minimum-size width="150" height="40"/>
+            <preferred-size width="131" height="157"/>
+            <maximum-size width="150" height="40"/>
+          </grid>
         </constraints>
         <properties>
+          <font size="20"/>
+          <horizontalAlignment value="0"/>
+          <horizontalTextPosition value="2"/>
           <text value="Daily Slang"/>
+          <verticalTextPosition value="0"/>
         </properties>
       </component>
       <component id="de241" class="javax.swing.JLabel" binding="Intro">
@@ -160,6 +203,29 @@
         <properties>
           <font name="Comic Sans MS" size="36"/>
           <text value="Welcome to Slang Word !"/>
+        </properties>
+      </component>
+      <component id="3462a" class="javax.swing.JLabel" binding="DailySlang">
+        <constraints>
+          <grid row="1" column="2" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <preferred-size width="184" height="157"/>
+          </grid>
+        </constraints>
+        <properties>
+          <font size="16"/>
+          <text value="Learn new slang for today"/>
+        </properties>
+      </component>
+      <component id="98bd1" class="javax.swing.JButton" binding="searchButton" default-binding="true">
+        <constraints>
+          <grid row="2" column="3" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false">
+            <minimum-size width="80" height="30"/>
+            <preferred-size width="80" height="40"/>
+            <maximum-size width="80" height="30"/>
+          </grid>
+        </constraints>
+        <properties>
+          <text value="Search"/>
         </properties>
       </component>
     </children>
