@@ -40,6 +40,8 @@ public class Interface  extends JFrame{
     private LocalDate lastRandom=LocalDate.MIN;
     private String typeSearching="slang";
     private String[] defs;
+    private SlangWord dict;
+
 
     private void loadInSlangScrollPane(String[] arr){
         slangList.setListData(arr);
@@ -47,8 +49,8 @@ public class Interface  extends JFrame{
 
     public Interface() {
         super("Home Page");
-        searchButton.setSize(10, 10);
-        SlangWord dict = new SlangWord();
+//        searchButton.setSize(10, 10);
+        dict = new SlangWord();
         try {
             dict.init("slang.txt");
         } catch (IOException e) {
@@ -93,6 +95,7 @@ public class Interface  extends JFrame{
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                dict.getHistory().addHistory(new Record(dict.getDate(),textSearch.getText()));
                 defList.setListData(new String[0]);
                 if (typeSearching == "slang") {
                     if (dict.getSlang().containsKey(textSearch.getText())) {
@@ -125,8 +128,14 @@ public class Interface  extends JFrame{
         slangList.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                defs = dict.getSlang().get(slangList.getSelectedValue()).toArray(new String[0]);
-                defList.setListData(defs);
+                if (slangList.getSelectedValue()!=null){
+                    dict.getHistory().addHistory(new Record(dict.getDate(),slangList.getSelectedValue().toString()));
+                    defs = dict.getSlang().get(slangList.getSelectedValue()).toArray(new String[0]);
+                    defList.setListData(defs);
+                }
+                else {
+                    defList.setListData(new String[0]);
+                }
             }
         });
         button1.addActionListener(new ActionListener() {
@@ -137,16 +146,20 @@ public class Interface  extends JFrame{
                 loadInSlangScrollPane(keys);
             }
         });
-        resetButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                try {
-                    dict.init("original.txt");
-                } catch (IOException er) {
-                    throw new RuntimeException(er);
-                }
-            }
-        });
+//        resetButton.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                SlangWord dict = new SlangWord();
+//                try {
+//                    dict.init("original.txt");
+//                } catch (IOException er) {
+//                    throw new RuntimeException(er);
+//                }
+//                String[] keys = dict.getSlang().keySet().toArray(new String[0]);
+//                loadInSlangScrollPane(keys);
+//
+//            }
+//        });
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -218,6 +231,31 @@ public class Interface  extends JFrame{
                 }
             }
 
+        });
+        historyButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                defList.setListData(new String[0]);
+                HashSet<String> historyList=new HashSet<String>();
+                for (Record re:dict.getHistory().getHistory()){
+                    historyList.add(re.getDate()+"  "+re.getSlang());
+                }
+                loadInSlangScrollPane(historyList.toArray(new String[0]));
+            }
+        });
+
+        resetButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dict = new SlangWord();
+                try {
+                    dict.init("original.txt");
+                } catch (IOException er) {
+                    throw new RuntimeException(er);
+                }
+                String[] keys = dict.getSlang().keySet().toArray(new String[0]);
+                loadInSlangScrollPane(keys);
+            }
         });
     }
 
