@@ -1,4 +1,7 @@
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.io.*;
@@ -88,6 +91,11 @@ public class SlangWord {
         temp.add(newdef);
         slang.put(newSlang,temp);
         addSeparateKeyWord(newSlang,newdef);
+        try {
+            saveToFile("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void overwriteSlang(String sSlang,String newdef){
@@ -98,12 +106,21 @@ public class SlangWord {
 
         slang.get(sSlang).add(newdef);
         addSeparateKeyWord(sSlang,newdef);
-
+        try {
+            saveToFile("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void duplicateSlang(String key,String newdef){
         slang.get(key).add(newdef);
         addSeparateKeyWord(key,newdef);
+        try {
+            saveToFile("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void editSlang(String oldSlang,String newSlang){
@@ -113,6 +130,11 @@ public class SlangWord {
             addSeparateKeyWord(newSlang,temp);
         }
         slang.put(newSlang,defi);
+        try {
+            saveToFile("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public void deleteSlang(String sslang){
@@ -120,21 +142,79 @@ public class SlangWord {
         for (String temp: defi){
             deleteElementDefinition(sslang,temp);
         }
+        try {
+            saveToFile("slang.txt");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public String randomSlang() {
+    public String randomDailySlang() {
+        String key=randomSlang();
+        String value=randomDefinition(key);
+
+        return "\""+key +": "+ value+"\"";
+    }
+
+    public String randomSlang(){
         Object[] slangList = slang.keySet().toArray();
         Object key = slangList[new Random().nextInt(slangList.length)];
 
+        return key.toString();
+    }
+
+    public String randomDefinition(String key){
         String[] defList = slang.get(key).toArray(new String[slang.get(key).size()]);
         Object value = defList[new Random().nextInt(defList.length)];
 
-        return "\""+key.toString() +": "+ value.toString()+"\"";
+        return value.toString();
     }
     public String getDate(){
         Date date = new Date();
         SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         return DateFor.format(date);
+    }
+
+    public void saveToFile(String file_name)throws IOException {
+        String str;
+        FileWriter fw;
+        file_name="./data/"+file_name;
+        try {
+            fw = new FileWriter(file_name);
+        } catch (IOException exc) {
+            System.out.println("Error opening file");
+            return;
+        }
+
+        for (Map.Entry<String, HashSet<String>> sslang : slang.entrySet()) {
+            str = sslang.getKey()+"`";
+            Iterator itr = sslang.getValue().iterator();
+            while (itr.hasNext()) {
+                str+=itr.next();
+                if(itr.hasNext()){
+                    str+="| ";
+                }
+            }
+
+            str = str + "\r\n";
+            fw.write(str);
+        }
+
+        fw.close();
+        System.out.println("Export file successfully ! Check your file !");
+    }
+    public void appendSlang(String key,String value,String file_name){
+        File file=new File("./data/" +file_name);
+        String text="";
+        if (file.length()>0){
+            text="\r\n";
+        }
+        text+=key+"`"+value;
+        try {
+            Files.write(Paths.get("./data/"+file_name), text.getBytes(), StandardOpenOption.APPEND);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public static void main(String[] args) {
@@ -152,7 +232,7 @@ public class SlangWord {
         for (String x: dict.getDefinition().get(key)){
             System.out.println(x);
         }
-        System.out.println("The daily slang: "+dict.randomSlang());
+        System.out.println("The daily slang: "+dict.randomDailySlang());
 
 //        Date date = new Date();
 //        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");

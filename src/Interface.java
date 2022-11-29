@@ -49,7 +49,6 @@ public class Interface  extends JFrame{
 
     public Interface() {
         super("Home Page");
-//        searchButton.setSize(10, 10);
         dict = new SlangWord();
         try {
             dict.init("slang.txt");
@@ -65,7 +64,7 @@ public class Interface  extends JFrame{
                 if (lastRandom.compareTo(LocalDate.now()) == 0) {
                     JOptionPane.showMessageDialog(null, "The Slang for today's been released. Come back tomorrow to learn slang!");
                 } else {
-                    String randomText = dict.randomSlang();
+                    String randomText = dict.randomDailySlang();
                     DailySlang.setText(randomText);
                     lastRandom = LocalDate.now();
                 }
@@ -95,7 +94,6 @@ public class Interface  extends JFrame{
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dict.getHistory().addHistory(new Record(dict.getDate(),textSearch.getText()));
                 defList.setListData(new String[0]);
                 if (typeSearching == "slang") {
                     if (dict.getSlang().containsKey(textSearch.getText())) {
@@ -129,7 +127,9 @@ public class Interface  extends JFrame{
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (slangList.getSelectedValue()!=null){
-                    dict.getHistory().addHistory(new Record(dict.getDate(),slangList.getSelectedValue().toString()));
+                    Record re=new Record(dict.getDate(),slangList.getSelectedValue().toString());
+                    dict.getHistory().addHistory(re);
+                    dict.getHistory().saveHistoryToFile(re.getDate(),re.getSlang(),"history.txt");
                     defs = dict.getSlang().get(slangList.getSelectedValue()).toArray(new String[0]);
                     defList.setListData(defs);
                 }
@@ -146,20 +146,7 @@ public class Interface  extends JFrame{
                 loadInSlangScrollPane(keys);
             }
         });
-//        resetButton.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                SlangWord dict = new SlangWord();
-//                try {
-//                    dict.init("original.txt");
-//                } catch (IOException er) {
-//                    throw new RuntimeException(er);
-//                }
-//                String[] keys = dict.getSlang().keySet().toArray(new String[0]);
-//                loadInSlangScrollPane(keys);
-//
-//            }
-//        });
+
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -257,13 +244,18 @@ public class Interface  extends JFrame{
                 loadInSlangScrollPane(keys);
             }
         });
+        quizButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new QuizUI().openQuizUI();
+            }
+        });
     }
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Slang Word App");
         frame.setContentPane(new Interface().homePage);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //frame.setResizable(false);
         frame.pack();
         frame.setVisible(true);
     }
