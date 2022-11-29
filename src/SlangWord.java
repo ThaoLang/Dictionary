@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.*;
 import java.io.*;
 
@@ -15,15 +14,12 @@ public class SlangWord {
     private HashMap<String, HashSet<String>> definition;
     private History history;
     private String dailySlang="";
-    private LocalDate lastRandom=LocalDate.MIN;
 
     SlangWord() {
         slang = new TreeMap<>();
         definition = new HashMap<>();
         history = new History();
     }
-
-
 
     private void addSeparateKeyWord(String key, String value){
         String[] keyword = value.split(" ");
@@ -52,7 +48,7 @@ public class SlangWord {
         }
     }
 
-    private void init(String file_name) throws IOException {
+    public void init(String file_name) throws IOException {
 
         BufferedReader br = new BufferedReader(
                 new InputStreamReader(new FileInputStream("./data/" + file_name), "utf8"));
@@ -133,7 +129,12 @@ public class SlangWord {
         String[] defList = slang.get(key).toArray(new String[slang.get(key).size()]);
         Object value = defList[new Random().nextInt(defList.length)];
 
-        return key.toString() +": "+ value.toString();
+        return "\""+key.toString() +": "+ value.toString()+"\"";
+    }
+    public String getDate(){
+        Date date = new Date();
+        SimpleDateFormat DateFor = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+        return DateFor.format(date);
     }
 
     public static void main(String[] args) {
